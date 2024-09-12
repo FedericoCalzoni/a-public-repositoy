@@ -11,28 +11,11 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
-    - name: Set up SSH Agent
+      
+    - name: Clone private repo
       run: |
         eval `ssh-agent -s`
         ssh-add - <<< "${{ secrets.PRIVATE_SSH_KEY }}"
-
-    - name: Add GitHub to known hosts
-      run: |
-        mkdir -p ~/.ssh
-        ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-
-    - name: Verify SSH Key
-      run: |
-        ssh -T git@github.com || true  # This tests the SSH connection; should not error out
-
-    - name: Debug SSH Configuration
-      run: |
-        # Display the SSH config and known_hosts file
-        cat ~/.ssh/config || echo "No SSH config file"
-        cat ~/.ssh/known_hosts || echo "No known_hosts file"
-        
-    - name: Clone the private repository
-      run: |
         git clone git@github.com:FedericoCalzoni/a-private-repository.git
 
     - name: Compile test.c
