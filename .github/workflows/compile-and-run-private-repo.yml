@@ -21,6 +21,10 @@ jobs:
         mkdir -p ~/.ssh
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
+    - name: Verify SSH Key
+      run: |
+        ssh -T git@github.com || true  # This tests the SSH connection; should not error out
+
     - name: Clone the private repository
       run: |
         git clone git@github.com:FedericoCalzoni/a-private-repository.git
