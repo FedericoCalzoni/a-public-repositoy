@@ -25,6 +25,12 @@ jobs:
       run: |
         ssh -T git@github.com || true  # This tests the SSH connection; should not error out
 
+    - name: Debug SSH Configuration
+      run: |
+        # Display the SSH config and known_hosts file
+        cat ~/.ssh/config || echo "No SSH config file"
+        cat ~/.ssh/known_hosts || echo "No known_hosts file"
+        
     - name: Clone the private repository
       run: |
         git clone git@github.com:FedericoCalzoni/a-private-repository.git
