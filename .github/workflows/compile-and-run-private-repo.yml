@@ -1,4 +1,4 @@
-ùname: compile-and-run-private-repo
+name: compile-and-run-private-repo
 
 on:
   push:
